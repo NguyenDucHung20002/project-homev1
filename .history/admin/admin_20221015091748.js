@@ -21,7 +21,7 @@ if (checkAdmin) {
                 </ul>
             </div>
         `);
-  localStorage.removeItem("admin");
+  // localStorage.removeItem("admin");
   fetch(`https://getuser.vercel.app/api/getAAdmin/${checkAdmin}`)
     .then((data) => data.json())
     .then((result) => {

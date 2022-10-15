@@ -21,7 +21,7 @@ if (checkAdmin) {
                 </ul>
             </div>
         `);
-  localStorage.removeItem("admin");
+  // localStorage.removeItem("admin");
   fetch(`https://getuser.vercel.app/api/getAAdmin/${checkAdmin}`)
     .then((data) => data.json())
     .then((result) => {
@@ -30,7 +30,7 @@ if (checkAdmin) {
       handleAdminProducts();
     });
 } else {
-  window.location.replace("./loginadmin/loginadmin.html");
+  window.location.replace("loginadmin/loginadmin.html");
 }
 
 function handleAdmin(result) {
