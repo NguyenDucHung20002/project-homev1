@@ -68,28 +68,21 @@ $(document).ready(function () {
       const getEmail = $(".input-email").val().trim();
       const getUsername = $(".input-username").val().trim();
       const getUserPassword = $(".input-password").val().trim();
-      if (getEmail === "" || getUsername === "" || getUserPassword === "") {
-        alert("Input can not be empty");
-      } else if (testEmail(getEmail)) {
-        alert("Invalid email");
-      } else if (testing(getUsername)) {
-        alert("Username must not have spaces or special characters");
-      } else if (getUsername.length > 25) {
-        alert("Username must be less than 25 characters");
-      } else if (getUsername.length < 4) {
-        alert("Username must be at least 4 characters");
-      } else {
-        $("body").prepend(`
-                <div class="form-loading">
-                  <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                  </ul>
-                </div>`);
-        fetch("https://getuser.vercel.app/api/getAllUser")
-          .then((data) => data.json())
-          .then((result) => {
+
+      fetch("https://getuser.vercel.app/api/getAllUser")
+        .then((data) => data.json())
+        .then((result) => {
+          if (getEmail === "" || getUsername === "" || getUserPassword === "") {
+            alert("Input can not be empty");
+          } else if (testEmail(getEmail)) {
+            alert("Invalid email");
+          } else if (testing(getUsername)) {
+            alert("Username must not have spaces or special characters");
+          } else if (getUsername.length > 25) {
+            alert("Username must be less than 25 characters");
+          } else if (getUsername.length < 4) {
+            alert("Username must be at least 4 characters");
+          } else {
             const checkNameUser = result.findIndex(
               (val) => val.name === getUsername && val._id !== getUserID
             );
@@ -100,13 +93,10 @@ $(document).ready(function () {
               (val) => val._id === getUserID && val.password === getUserPassword
             );
             if (findPassword === -1) {
-              $("body").find(".form-loading").remove();
               alert("Incorrect password!");
             } else if (checkEmailUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Email already exists");
             } else if (checkNameUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Username already exists");
             } else if (
               findPassword !== -1 &&
@@ -117,7 +107,14 @@ $(document).ready(function () {
                 email: getEmail,
                 name: getUsername,
               };
-
+              $("body").prepend(`
+                <div class="form-loading">
+                  <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                </div>`);
               $.ajax({
                 type: "PUT",
                 url: `https://getuser.vercel.app/api/updateUser/${getUserID}`,
@@ -134,12 +131,12 @@ $(document).ready(function () {
                 },
               });
             }
-          })
-          .catch((err) => {
-            alert("Something was wrong", err);
-            $("body").find(".form-loading").remove();
-          });
-      }
+          }
+        })
+        .catch((err) => {
+          alert("Something was wrong", err);
+          $("body").find(".form-loading").remove();
+        });
     } else {
       alert("You don't have permissison to apply");
     }
@@ -166,16 +163,21 @@ $(document).ready(function () {
       const oldPassword = $(".old-pass").val().trim();
       const newPassword = $(".new-pass").val().trim();
       const comfirmPassword = $(".comfirm-pass").val().trim();
-      if (testing(newPassword) || testing(comfirmPassword)) {
-        alert("Password must not have spaces or special characters");
-      } else if (newPassword === "" || comfirmPassword === "") {
-        alert("Invalid value");
-      } else if (comfirmPassword !== newPassword) {
-        alert("The Password is different from the Confirm!");
-      } else if (comfirmPassword.length > 30) {
-        alert("Password must be less than 30 characters");
-      } else {
-        $("body").prepend(`
+      fetch(`https://getuser.vercel.app/api/getAUser/${getUserID}`)
+        .then((data) => data.json())
+        .then((result) => {
+          if (testing(newPassword) || testing(comfirmPassword)) {
+            alert("Password must not have spaces or special characters");
+          } else if (newPassword === "" || comfirmPassword === "") {
+            alert("Invalid value");
+          } else if (result.password !== oldPassword) {
+            alert("Incorrect password!");
+          } else if (comfirmPassword !== newPassword) {
+            alert("The Password is different from the Confirm!");
+          } else if (comfirmPassword.length > 30) {
+            alert("Password must be less than 30 characters");
+          } else {
+            $("body").prepend(`
                 <div class="form-loading">
                   <ul>
                     <li></li>
@@ -183,32 +185,23 @@ $(document).ready(function () {
                     <li></li>
                   </ul>
                 </div>`);
-        fetch(`https://getuser.vercel.app/api/getAUser/${getUserID}`)
-          .then((data) => data.json())
-          .then((result) => {
-            if (result.password !== oldPassword) {
-              $("body").find(".form-loading").remove();
-
-              alert("Incorrect password!");
-            } else {
-              $.ajax({
-                type: "PUT",
-                url: `https://getuser.vercel.app/api/updateUser/${getUserID}`,
-                data: JSON.stringify({ password: comfirmPassword }),
-                contentType: "application/json",
-                dataType: "json",
-                success: function () {
-                  alert("changed success");
-                  $("body").find(".form-loading").remove();
-                },
-                error: function () {
-                  alert("Something was wrong");
-                  $("body").find(".form-loading").remove();
-                },
-              });
-            }
-          });
-      }
+            $.ajax({
+              type: "PUT",
+              url: `https://getuser.vercel.app/api/updateUser/${getUserID}`,
+              data: JSON.stringify({ password: comfirmPassword }),
+              contentType: "application/json",
+              dataType: "json",
+              success: function () {
+                alert("changed success");
+                $("body").find(".form-loading").remove();
+              },
+              error: function () {
+                alert("Something was wrong");
+                $("body").find(".form-loading").remove();
+              },
+            });
+          }
+        });
     } else {
       alert("You don't have permissison to apply");
     }

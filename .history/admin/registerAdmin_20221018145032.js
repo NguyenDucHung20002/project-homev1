@@ -49,7 +49,14 @@ $(document).ready(function () {
   let checkSpecial = true;
   $(".btn-submit-register").click(function (e) {
     e.preventDefault();
-
+    $("body").prepend(`
+    <div class="form-loading">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    </div>`);
     fetch("https://getuser.vercel.app/api/getAllAdmin")
       .then((data) => data.json())
       .then((result) => {
@@ -73,29 +80,34 @@ $(document).ready(function () {
             dataUser.name === "" ||
             dataUser.password === ""
           ) {
+            $("body").find(".form-loading").remove();
+
             alert("Input must be filled");
             checkForm = false;
           } else if (testing(dataUser.name) || testing(dataUser.password)) {
+            $("body").find(".form-loading").remove();
             alert(
               "Username and password must not have spaces or special characters"
             );
             checkSpecial = false;
-          } else if (tesEmail(dataUser.email)) {
-            alert("Invalid email");
-            checkSpecial = false;
           } else if (dataUser.name.length > 25) {
+            $("body").find(".form-loading").remove();
             alert("Name must be less than 25 characters");
             checkLengthName = false;
           } else if (dataUser.name.length < 4) {
+            $("body").find(".form-loading").remove();
             alert("Name must be at least 4 characters");
             checkLengthName = false;
           } else if (dataUser.password.length > 30) {
+            $("body").find(".form-loading").remove();
             alert("Password must be less than 30 characters");
             checkLengthPass = false;
           } else if (dataUser.password.length < 4) {
+            $("body").find(".form-loading").remove();
             alert("Password must be at least 4 characters");
             checkLengthPass = false;
           } else if (dataUser.password !== $(".register-pass").val()) {
+            $("body").find(".form-loading").remove();
             alert("The Password is different from the Confirm !");
             checkForm = false;
           } else {
@@ -106,10 +118,12 @@ $(document).ready(function () {
               (val) => val.email === dataUser.email
             );
             if (findEmailUser !== -1) {
+              $("body").find(".form-loading").remove();
               alert("Email already exists");
               checkEmail = false;
             }
             if (findNameUser !== -1 && checkEmail === true) {
+              $("body").find(".form-loading").remove();
               alert("Admin already exists");
               checkPassword = false;
             }
@@ -122,14 +136,7 @@ $(document).ready(function () {
             checkLengthPass === true &&
             checkSpecial === true
           ) {
-            $("body").prepend(`
-              <div class="form-loading">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                </ul>
-             </div>`);
+            console.log("hello");
             let newUser = { ...dataUser };
             console.log("newUser:", newUser);
             $.ajax({

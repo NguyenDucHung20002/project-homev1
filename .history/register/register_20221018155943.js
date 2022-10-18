@@ -41,7 +41,8 @@ $(document).ready(function () {
     if (
       dataUser.email === "" ||
       dataUser.name === "" ||
-      dataUser.password === ""
+      dataUser.password === "" ||
+      document.querySelector("#regis-check").checked === false
     ) {
       alert("Invalid value");
     } else if (tesEmail(dataUser.email)) {
@@ -58,10 +59,6 @@ $(document).ready(function () {
       alert("Password must be at least 4 characters");
     } else if (dataUser.password !== $(".register-pass").val()) {
       alert("The Password is different from the Confirm !");
-    } else if (document.querySelector("#regis-check").checked === false) {
-      alert("You must agree to privacy policy!");
-      $(".checkbox-form").find("i").remove();
-      $(".checkbox-form").append(`<i class="fa-solid fa-exclamation"></i>`);
     } else {
       $("body").prepend(`
               <div class="form-loading">
@@ -86,6 +83,11 @@ $(document).ready(function () {
           } else if (findNameUser !== -1) {
             $("body").find(".form-loading").remove();
             alert("Username already exists");
+          } else if (document.querySelector("#regis-check").checked === false) {
+            $(".checkbox-form").find("i").remove();
+            $(".checkbox-form").append(
+              `<i class="fa-solid fa-exclamation"></i>`
+            );
           } else {
             let newUser = { ...dataUser };
 

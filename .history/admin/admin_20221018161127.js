@@ -119,13 +119,10 @@ function handleAdminProducts() {
                 val._id === checkAdmin && val.password === getUserPassword
             );
             if (findPassword === -1) {
-              $("body").find(".form-loading").remove();
               alert("Incorrect password!");
             } else if (checkEmailUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Email already exists");
             } else if (checkNameUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Username already exists");
             } else if (
               findPassword !== -1 &&
@@ -225,7 +222,6 @@ function handleAdminProducts() {
           .then((data) => data.json())
           .then((result) => {
             if (result.password !== oldPassword) {
-              $("body").find(".form-loading").remove();
               alert("Incorrect password!");
             } else {
               $.ajax({

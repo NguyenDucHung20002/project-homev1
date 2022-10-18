@@ -81,10 +81,8 @@ $(document).ready(function () {
             (val) => val.email === dataUser.email
           );
           if (findEmailUser !== -1) {
-            $("body").find(".form-loading").remove();
             alert("Email already exists");
           } else if (findNameUser !== -1) {
-            $("body").find(".form-loading").remove();
             alert("Username already exists");
           } else {
             let newUser = { ...dataUser };

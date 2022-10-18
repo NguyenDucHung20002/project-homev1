@@ -119,13 +119,10 @@ function handleAdminProducts() {
                 val._id === checkAdmin && val.password === getUserPassword
             );
             if (findPassword === -1) {
-              $("body").find(".form-loading").remove();
               alert("Incorrect password!");
             } else if (checkEmailUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Email already exists");
             } else if (checkNameUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Username already exists");
             } else if (
               findPassword !== -1 &&
@@ -202,18 +199,24 @@ function handleAdminProducts() {
       const oldPassword = $(".old-pass").val().trim();
       const newPassword = $(".new-pass").val().trim();
       const comfirmPassword = $(".comfirm-pass").val().trim();
-      if (testing(newPassword) || testing(comfirmPassword)) {
-        alert("Password must not have spaces or special characters");
-      } else if (newPassword === "" || comfirmPassword === "") {
-        alert("Invalid value");
-      } else if (comfirmPassword !== newPassword) {
-        alert("The Password is different from the Confirm!");
-      } else if (comfirmPassword.length > 30) {
-        alert("Password must be less than 30 haracters");
-      } else if (comfirmPassword.length < 4) {
-        alert("Password must be at least 4 characters");
-      } else {
-        $("body").prepend(`
+      fetch(`https://getuser.vercel.app/api/getAAdmin/${checkAdmin}`)
+        .then((data) => data.json())
+        .then((result) => {
+          console.log("result:", result);
+          if (testing(newPassword) || testing(comfirmPassword)) {
+            alert("Password must not have spaces or special characters");
+          } else if (newPassword === "" || comfirmPassword === "") {
+            alert("Invalid value");
+          } else if (result.password !== oldPassword) {
+            alert("Incorrect password!");
+          } else if (comfirmPassword !== newPassword) {
+            alert("The Password is different from the Confirm!");
+          } else if (comfirmPassword.length > 30) {
+            alert("Password must be less than 30 haracters");
+          } else if (comfirmPassword.length < 4) {
+            alert("Password must be at least 4 characters");
+          } else {
+            $("body").prepend(`
                 <div class="form-loading">
                   <ul>
                     <li></li>
@@ -221,32 +224,24 @@ function handleAdminProducts() {
                     <li></li>
                   </ul>
                 </div>`);
-        fetch(`https://getuser.vercel.app/api/getAAdmin/${checkAdmin}`)
-          .then((data) => data.json())
-          .then((result) => {
-            if (result.password !== oldPassword) {
-              $("body").find(".form-loading").remove();
-              alert("Incorrect password!");
-            } else {
-              $.ajax({
-                type: "PUT",
-                url: `https://getuser.vercel.app/api/updateAdmin/${checkAdmin}`,
-                data: JSON.stringify({ password: comfirmPassword }),
-                contentType: "application/json",
-                dataType: "json",
-                success: function () {
-                  alert("changed success");
-                  $("body").find(".form-loading").remove();
-                  location.reload();
-                },
-                error: function () {
-                  alert("Something was wrong");
-                  $("body").find(".form-loading").remove();
-                },
-              });
-            }
-          });
-      }
+            $.ajax({
+              type: "PUT",
+              url: `https://getuser.vercel.app/api/updateAdmin/${checkAdmin}`,
+              data: JSON.stringify({ password: comfirmPassword }),
+              contentType: "application/json",
+              dataType: "json",
+              success: function () {
+                alert("changed success");
+                $("body").find(".form-loading").remove();
+                location.reload();
+              },
+              error: function () {
+                alert("Something was wrong");
+                $("body").find(".form-loading").remove();
+              },
+            });
+          }
+        });
     } else {
       alert("You don't have permissison to apply");
     }

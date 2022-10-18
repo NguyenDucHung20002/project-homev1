@@ -69,27 +69,20 @@ $(document).ready(function () {
       const getUsername = $(".input-username").val().trim();
       const getUserPassword = $(".input-password").val().trim();
       if (getEmail === "" || getUsername === "" || getUserPassword === "") {
-        alert("Input can not be empty");
-      } else if (testEmail(getEmail)) {
-        alert("Invalid email");
-      } else if (testing(getUsername)) {
-        alert("Username must not have spaces or special characters");
-      } else if (getUsername.length > 25) {
-        alert("Username must be less than 25 characters");
-      } else if (getUsername.length < 4) {
-        alert("Username must be at least 4 characters");
-      } else {
-        $("body").prepend(`
-                <div class="form-loading">
-                  <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                  </ul>
-                </div>`);
-        fetch("https://getuser.vercel.app/api/getAllUser")
-          .then((data) => data.json())
-          .then((result) => {
+            alert("Input can not be empty");
+          } else if (testEmail(getEmail)) {
+            alert("Invalid email");
+          } else if (testing(getUsername)) {
+            alert("Username must not have spaces or special characters");
+          } else if (getUsername.length > 25) {
+            alert("Username must be less than 25 characters");
+          } else if (getUsername.length < 4) {
+            alert("Username must be at least 4 characters");
+          } 
+      fetch("https://getuser.vercel.app/api/getAllUser")
+        .then((data) => data.json())
+        .then((result) => {
+          else {
             const checkNameUser = result.findIndex(
               (val) => val.name === getUsername && val._id !== getUserID
             );
@@ -100,13 +93,10 @@ $(document).ready(function () {
               (val) => val._id === getUserID && val.password === getUserPassword
             );
             if (findPassword === -1) {
-              $("body").find(".form-loading").remove();
               alert("Incorrect password!");
             } else if (checkEmailUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Email already exists");
             } else if (checkNameUser !== -1) {
-              $("body").find(".form-loading").remove();
               alert("Username already exists");
             } else if (
               findPassword !== -1 &&
@@ -117,7 +107,14 @@ $(document).ready(function () {
                 email: getEmail,
                 name: getUsername,
               };
-
+              $("body").prepend(`
+                <div class="form-loading">
+                  <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                </div>`);
               $.ajax({
                 type: "PUT",
                 url: `https://getuser.vercel.app/api/updateUser/${getUserID}`,
@@ -134,12 +131,12 @@ $(document).ready(function () {
                 },
               });
             }
-          })
-          .catch((err) => {
-            alert("Something was wrong", err);
-            $("body").find(".form-loading").remove();
-          });
-      }
+          }
+        })
+        .catch((err) => {
+          alert("Something was wrong", err);
+          $("body").find(".form-loading").remove();
+        });
     } else {
       alert("You don't have permissison to apply");
     }

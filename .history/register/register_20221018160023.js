@@ -41,7 +41,8 @@ $(document).ready(function () {
     if (
       dataUser.email === "" ||
       dataUser.name === "" ||
-      dataUser.password === ""
+      dataUser.password === "" ||
+      document.querySelector("#regis-check").checked === false
     ) {
       alert("Invalid value");
     } else if (tesEmail(dataUser.email)) {
@@ -59,7 +60,6 @@ $(document).ready(function () {
     } else if (dataUser.password !== $(".register-pass").val()) {
       alert("The Password is different from the Confirm !");
     } else if (document.querySelector("#regis-check").checked === false) {
-      alert("You must agree to privacy policy!");
       $(".checkbox-form").find("i").remove();
       $(".checkbox-form").append(`<i class="fa-solid fa-exclamation"></i>`);
     } else {
@@ -81,10 +81,8 @@ $(document).ready(function () {
             (val) => val.email === dataUser.email
           );
           if (findEmailUser !== -1) {
-            $("body").find(".form-loading").remove();
             alert("Email already exists");
           } else if (findNameUser !== -1) {
-            $("body").find(".form-loading").remove();
             alert("Username already exists");
           } else {
             let newUser = { ...dataUser };

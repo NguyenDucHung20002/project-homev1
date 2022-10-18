@@ -80,7 +80,7 @@ $(document).ready(function () {
               "Username and password must not have spaces or special characters"
             );
             checkSpecial = false;
-          } else if (tesEmail(dataUser.email)) {
+          } else if (tesEmail(data.email)) {
             alert("Invalid email");
             checkSpecial = false;
           } else if (dataUser.name.length > 25) {
