@@ -3,14 +3,9 @@
   .product-page {
     padding: 110px 40px 0px;
     position: relative;
-    background-image: linear-gradient(
-      to bottom,
-      #609799,
-      #6d987e,
-      #8e9366,
-      #b18862,
-      #c77c7c
-    );
+    background: rgb(51, 51, 51)
+      url(https://www.eatthis.com/wp-content/uploads/sites/4/2022/07/Heart-of-Vegetables.jpg?quality=82&strip=all)
+      100% 100%;
     background-position: 0 0;
     background-repeat: repeat;
     font-size: 16px;
