@@ -209,7 +209,7 @@ function wrapperProduct(productsDB) {
                     <div class="card" data-category="${todo.category}">
                         <div class="card-content">
                             <div class="img">
-                                <img class="img-quick-view" src=${todo.image} data-id="${todo._id}"  alt="">
+                                <img class="img-quick-view" src=${todo.image} data-id="${todo.id}"  alt="">
                             </div>
                             <div class="details">
                                 <div class="name-price">
@@ -244,7 +244,7 @@ function wrapperProduct(productsDB) {
       }
     }
     cards.innerHTML = listString;
-    productEvent(list);
+    productEvent(productsDB);
   }
 
   // show detail product when click and add to cart
@@ -267,15 +267,11 @@ function wrapperProduct(productsDB) {
 
         quickView.innerHTML = `
                 <div class="quickview-image">
-                    <img src=${productsDB[idx].image} alt=${
-          productsDB[idx].name
-        }>
+                    <img src=${productsDB[idx].image} alt=${productsDB[idx].name}>
                 </div>
                 <div class="quickview-details">
                     <span class="product-name">${productsDB[idx].name}</span>
-                    <span class="product-price">${productsDB[
-                      idx
-                    ].category.toUpperCase()}  ${productsDB[idx].price} $</span>
+                    <span class="product-price">${productsDB[idx].price} $</span>
                 </div>
             `;
 

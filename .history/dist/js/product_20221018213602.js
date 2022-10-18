@@ -267,15 +267,11 @@ function wrapperProduct(productsDB) {
 
         quickView.innerHTML = `
                 <div class="quickview-image">
-                    <img src=${productsDB[idx].image} alt=${
-          productsDB[idx].name
-        }>
+                    <img src=${productsDB[idx].image} alt=${productsDB[idx].name}>
                 </div>
                 <div class="quickview-details">
                     <span class="product-name">${productsDB[idx].name}</span>
-                    <span class="product-price">${productsDB[
-                      idx
-                    ].category.toUpperCase()}  ${productsDB[idx].price} $</span>
+                    <span class="product-price">${productsDB[idx].price} $</span>
                 </div>
             `;
 
