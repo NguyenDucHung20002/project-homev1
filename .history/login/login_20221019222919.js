@@ -21,16 +21,16 @@ $(document).ready(function () {
     inputUser.val(getUser.email);
     passwordUser.val(getUser.password);
   }
+  $("body").prepend(`
+  <div class="form-loading">
+  <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
+  </div>`);
   $(".btn-submit-login").click(function (e) {
     e.preventDefault();
-    $("body").prepend(`
-    <div class="form-loading">
-    <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-    </div>`);
     fetch("https://getuser.vercel.app/api/getAllUser")
       .then((data) => data.json())
       .then((result) => {

@@ -22,7 +22,6 @@ $(document).ready(function () {
     passwordUser.val(getUser.password);
   }
   $(".btn-submit-login").click(function (e) {
-    e.preventDefault();
     $("body").prepend(`
     <div class="form-loading">
     <ul>
@@ -31,6 +30,7 @@ $(document).ready(function () {
         <li></li>
     </ul>
     </div>`);
+    e.preventDefault();
     fetch("https://getuser.vercel.app/api/getAllUser")
       .then((data) => data.json())
       .then((result) => {
