@@ -1,3 +1,5 @@
+import { testSum } from "./handleMicro.js";
+
 const iduser = JSON.parse(localStorage.getItem("user"));
 
 localStorage.removeItem("userid");
@@ -189,6 +191,7 @@ function wrapperProduct(productsDB) {
     renderCards(containProducts);
   };
 
+  console.log(testSum());
   //get menu vegetables or fruits
   function removeAndSetClassActive(nameClassActive) {
     menuAll.classList.remove("active");

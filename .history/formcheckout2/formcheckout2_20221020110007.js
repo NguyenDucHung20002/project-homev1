@@ -71,6 +71,7 @@ $(document).ready(function () {
         (d.getMonth() + 1) +
         "-" +
         d.getFullYear();
+      console.log("datetime:", datetime);
 
       if (
         name === "" ||
