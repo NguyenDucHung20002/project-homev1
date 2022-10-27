@@ -59,6 +59,7 @@ function renderBills(Bills) {
       `);
       billCarts.push(val.carts);
     });
+    console.log("billCarts", billCarts);
     renderCartsBill(billCarts);
   } else {
     $(".wrapper-checkout").html(`

@@ -97,6 +97,7 @@ $(document).ready(function () {
   });
   function actionScroll() {
     let top = $("html, body").scrollTop();
+    console.log("top:", top);
     //scrolling animation icon home
     if (top > 10) {
       iconHome.css({
