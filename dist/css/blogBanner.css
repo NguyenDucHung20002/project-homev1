@@ -117,6 +117,8 @@
   color: #ff6363;
   font-size: 15px;
   font-weight: 550;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .title .container .row .left .article .left-header .post-meta .meta-list a:hover {
@@ -265,8 +267,15 @@
 }
 
 .title .container .row .right .populer-post .short-post a {
+  color: black;
   width: 135px;
   margin: 10px 0 10px 10px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.title .container .row .right .populer-post .short-post a:hover {
+  color: #ff6363;
 }
 
 .title .container .row .right .populer-post .no-thuml a {

@@ -89,7 +89,6 @@
               .meta-list {
                 position: none;
                 margin-right: 15px;
-
                 i {
                   margin-right: 3px;
                   font-size: 15px;
@@ -99,7 +98,7 @@
                   color: #ff6363;
                   font-size: 15px;
                   font-weight: 550;
-
+                  transition: 0.3s;
                   &:hover {
                     color: #4d4d4d;
                   }
@@ -208,7 +207,6 @@
 
           .short-post {
             display: flex;
-
             .image {
               width: 75px;
               height: 75px;
@@ -223,8 +221,13 @@
             }
 
             a {
+              color: black;
               width: 135px;
               margin: 10px 0 10px 10px;
+              transition: 0.3s;
+              &:hover {
+                color: #ff6363;
+              }
             }
           }
 
