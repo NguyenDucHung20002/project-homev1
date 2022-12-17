@@ -402,6 +402,7 @@ function handleAdminProducts() {
               image: $("#btnComplete").data().url,
               category: $("#btnComplete").data().category,
             };
+            console.log("new", newProduct);
             $.ajax({
               type: "PUT",
               url: `https://getuser.vercel.app/api/updateProduct/${idComplete}`,
