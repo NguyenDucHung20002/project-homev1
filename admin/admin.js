@@ -269,9 +269,6 @@ function handleAdminProducts() {
                                 </div>
                                 <img src=${val.image} alt="">
                             </div>
-                            <div class="group-button">
-                                <button id="buttonEdit" data-id="${val._id}">Edit</button>
-                            </div>
                         </div>
                     </div>
                 `;
@@ -284,14 +281,11 @@ function handleAdminProducts() {
           `
                 <div class="card">
                     <div class="card-content">
-                        <div class="img">
+                        <div class="img" id="buttonEdit" data-id="${val._id}">
                             <div class="details">
                                 <span id="nameAndPrice">${val.name}<br>$${val.price}</span>
                             </div>
                             <img src=${val.image} alt="">
-                        </div>
-                        <div class="group-button">
-                            <button id="buttonEdit" data-id="${val._id}">Edit</button>
                         </div>
                     </div>
                 </div>
