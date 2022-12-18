@@ -218,14 +218,9 @@
   background-color: #1883ca;
 }
 
-.body .product-page .products .product-card .cards .card .card-content .group-button #buttonDelete:hover {
-  background-color: #c5152c;
-}
-
-.body .product-page .products .product-card .cards .card .card-content .group-button #buttonEdit,
-.body .product-page .products .product-card .cards .card .card-content .group-button #buttonDelete {
+.body .product-page .products .product-card .cards .card .card-content .group-button #buttonEdit {
   cursor: pointer;
-  width: 100px;
+  width: 220px;
   height: 35px;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);

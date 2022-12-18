@@ -271,7 +271,6 @@ function handleAdminProducts() {
                             </div>
                             <div class="group-button">
                                 <button id="buttonEdit" data-id="${val._id}">Edit</button>
-                                <button id="buttonDelete" data-id="${val._id}">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -293,7 +292,6 @@ function handleAdminProducts() {
                         </div>
                         <div class="group-button">
                             <button id="buttonEdit" data-id="${val._id}">Edit</button>
-                            <button id="buttonDelete" data-id="${val._id}">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -487,51 +485,6 @@ function handleAdminProducts() {
           });
         });
         $(".admin-input").fadeIn(400);
-      });
-    });
-
-    // Button Delete:
-    const btnDelete = document.querySelectorAll("#buttonDelete");
-    btnDelete.forEach((btn) => {
-      $(btn).click((e) => {
-        e.preventDefault();
-        if (confirm("confirm to delete this product!")) {
-          const idProductDelete = $(btn).data().id;
-          $.ajax({
-            type: "DELETE",
-            url: `https://getuser.vercel.app/api/deleteProduct/${idProductDelete}`,
-            contentType: "application/json",
-            dataType: "json",
-            success: function (response) {
-              GetProductsFromAPI();
-              fetch("https://getuser.vercel.app/api/getAllUser")
-                .then((data) => data.json())
-                .then((result) => {
-                  result.forEach((val) => {
-                    val.carts.forEach((valCart) => {
-                      if (idProductDelete === valCart.id) {
-                        const cartUser = {
-                          carts: val.carts.filter(
-                            (val) => val.id !== idProductDelete
-                          ),
-                        };
-                        $.ajax({
-                          type: "PUT",
-                          url: `https://getuser.vercel.app/api/updateUser/${val._id}`,
-                          data: JSON.stringify(cartUser),
-                          contentType: "application/json",
-                          dataType: "json",
-                        });
-                      }
-                    });
-                  });
-                });
-            },
-            error: function (response) {
-              alert("khong tim thay product", response);
-            },
-          });
-        }
       });
     });
   };
